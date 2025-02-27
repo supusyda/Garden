@@ -7,6 +7,14 @@ public enum HarvestType
     Animal,
     None
 }
+public enum ProductType
+{
+    None,
+    Tomato,
+    Corn,
+    Milk,
+
+}
 [CreateAssetMenu(fileName = "Harvest", menuName = "Harvest/HarvestSO")]
 
 public class HarvesSO : ScriptableObject
@@ -18,7 +26,7 @@ public class HarvesSO : ScriptableObject
 
     public float harvestTimeMinutes;
     public HarvestType harvestType;
-    public Transform harvestProductPrefab;
+    public ProductSO harvestProduct;
     public Sprite sprite;
 
 }

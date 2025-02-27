@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5937a16d220cd24e87dc50b8d44781a, type: 3}
+  m_Name: Tomato
+  m_EditorClassIdentifier: 
+  harvestObjName: Tomato
+  harvestMaximumAmount: 10
+  harvestAmount: 1
+  harvestTimeMinutes: 1
+  harvestType: 0
+  harvestProduct: {fileID: 11400000, guid: ecb296d64a3813943b56844a5d865a73, type: 2}
+  sprite: {fileID: -976997064, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}

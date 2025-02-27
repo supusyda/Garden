@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour
 
         if (contactInfo.isContact)
         {
-            Debug.Log(contactInfo.name);
+            contactInfo.interactable.Interact();
         }
     }
 }

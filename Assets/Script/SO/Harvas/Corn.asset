@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5937a16d220cd24e87dc50b8d44781a, type: 3}
-  m_Name: Tomato
+  m_Name: Corn
   m_EditorClassIdentifier: 
-  harvestObjName: 
-  harvestMaximumAmount: 0
-  harvestAmount: 0
-  harvestTime: 0
+  harvestObjName: Corn
+  harvestMaximumAmount: 40
+  harvestAmount: 1
+  harvestTimeMinutes: 1
   harvestType: 0
-  sprite: {fileID: 0}
+  harvestProduct: {fileID: 11400000, guid: 558097c80ebc7ce44bdda2a3de45f828, type: 2}
+  sprite: {fileID: -218124146, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}
