@@ -9,31 +9,46 @@ public class Product : MonoBehaviour, IInteract
     [Header("References")]
     [SerializeField] private Transform model;
     [SerializeField] private Transform productCollider;
+    [SerializeField] private HarvestThing _plantDropOff;
 
     [Header("Events")]
     [SerializeField] protected Event onHarvest;
+    [SerializeField] protected Event onDecompose;
+
     [Header("Parameters")]
     [SerializeField] private ProductSO _productSO;
     public void Interact()
     {
-
-        onHarvest?.Raise(this, this._productSO);
-        productCollider.gameObject.SetActive(false);
-        FadeUp();
-
+        HarvestProduct();
     }
     public void SetProduct(ProductSO productSO)
     {
         this._productSO = productSO;
         model.GetComponent<SpriteRenderer>().sprite = productSO.productSprite;
+        onDecompose.Register(DecomposeProduct);
     }
     private void FadeUp()
     {
-
         model.GetComponent<SpriteRenderer>().DOFade(0, .5f).OnComplete(() =>
         {
             transform.gameObject.SetActive(false);
+            onDecompose.Unregister(DecomposeProduct);
         });
+    }
+    private void HarvestProduct()
+    {
+        onHarvest?.Raise(this, this._productSO);
+        productCollider.gameObject.SetActive(false);
+        FadeUp();
+    }
+    private void DecomposeProduct(Component sender, object data)
+    {
+        if (sender != _plantDropOff) return;
+        FadeUp();
+    }
+    public void SetPlantDropOff(HarvestThing plantDropOff)
+    {
+        this._plantDropOff = plantDropOff;
     }
 
 }

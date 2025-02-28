@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     public void OnUpdateProductUI(Component sender, object args)
     {
-        Debug.Log("ASSSSSS");
+
         if (args is (ProductType productType, int amount))
         {
 

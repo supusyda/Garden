@@ -28,6 +28,7 @@ public class HarvesSO : ScriptableObject
     public HarvestType harvestType;
     public ProductSO harvestProduct;
     public Sprite sprite;
+    public int price;
 
 }
 

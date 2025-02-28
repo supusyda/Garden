@@ -39,8 +39,6 @@ public class GameManager : MonoBehaviour
                 case ProductType.Tomato:
                     AddTomato(1);
                     newData = tomatoCount;
-                    Debug.Log("DCMM");
-
                     break;
                 default:
                     Debug.Log("Unknown ProductType");

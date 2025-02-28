@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034f6eb8804182b4bb4f050402495b20, type: 3}
-  m_Name: Corn
+  m_Script: {fileID: 11500000, guid: 3ddc424bb27005c40ae31efc2d28c837, type: 3}
+  m_Name: OnDecompose
   m_EditorClassIdentifier: 
-  productType: 2
-  productName: Corn
-  productSprite: {fileID: 1786910332, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}
-  productPrice: 5

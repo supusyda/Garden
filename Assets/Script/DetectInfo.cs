@@ -18,7 +18,7 @@ public class DetectInfo
             {
                 name = hit.collider?.transform.parent.name,
                 ContactTransform = hit.transform.parent,
-                isContact = hit.collider.transform.parent.GetComponent<IInteract>() != null,
+                isContact = hit.collider,
                 interactable = hit.collider.transform.parent.GetComponent<IInteract>(),
                 point = hit.point
             };

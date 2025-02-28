@@ -11,9 +11,12 @@ public class HarvestThing : MonoBehaviour
     [SerializeField] protected Transform plantModel;
     [Header("Events")]
     [SerializeField] protected Event onSpawnedProduct;
-    private int currentAmount;
+    [SerializeField] protected Event onDecompose;
 
-    Coroutine harvestCoroutine;
+    private int currentAmount;
+    protected int TIME_BEFORE_DECOMPOSE_IN_MINUTE = 60;
+
+    Coroutine _harvestCoroutine;
 
     public virtual void SetPlant(HarvesSO harvesSO)
     {
@@ -24,12 +27,12 @@ public class HarvestThing : MonoBehaviour
     protected virtual void Harvest()
     {
         Debug.Log("Harvesting");
-        if (harvestCoroutine != null)
+        if (_harvestCoroutine != null)
         {
-            StopCoroutine(harvestCoroutine);
+            StopCoroutine(_harvestCoroutine);
         }
         float timeSpawnProduct = harvesSO.harvestTimeMinutes * 60;
-        harvestCoroutine = StartCoroutine(HarvestCoroutineInSec());
+        _harvestCoroutine = StartCoroutine(HarvestCoroutineInSec());
     }
 
     private IEnumerator HarvestCoroutineInSec(float time = 1)
@@ -42,6 +45,18 @@ public class HarvestThing : MonoBehaviour
             onSpawnedProduct.Raise(this, harvesSO.harvestProduct);
 
         }
+        // yield return new WaitForSeconds(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60);
+        yield return new WaitForSeconds(3);
+
+        Decompose();
+
+
+    }
+    private void Decompose()
+    {
+        Debug.Log("Decomposing");
+        onDecompose.Raise(this, null);
+
     }
     void Update()
     {

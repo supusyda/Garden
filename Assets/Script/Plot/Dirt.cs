@@ -8,10 +8,15 @@ public class Dirt : MonoBehaviour
     [Header("References")]
     [SerializeField] private HarvestThing harvestThing;
 
+    [Header("Events")]
+
+    private int _dirtIndex;
+
     void Awake()
     {
         harvestThing = GetComponentInChildren<HarvestThing>();
     }
+
 
 
 

@@ -25,8 +25,13 @@ public class ProductSpawnManager : Spawner
     {
 
         // Debug.Log("OnSpawnHarvestProduct" + data as ProductSO);
-        Product spawnedProduct = SpawnProduct(sender.transform.position, "ProductPrefab").GetComponent<Product>();
+        Vector3 spawnPos = sender.transform.position;
+
+        spawnPos.z = -1;// to make sure the product is in front of the dirt object 
+
+        Product spawnedProduct = SpawnProduct(spawnPos, "ProductPrefab").GetComponent<Product>();
         spawnedProduct.SetProduct(data as ProductSO);
+        spawnedProduct.SetPlantDropOff(sender.GetComponent<HarvestThing>());
 
     }
 }
