@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class BuyBtn : BtnBase
 {
-    protected override void OnClick()
-    {
-        Debug.Log("Buy button clicked: " + gameObject.name);
-    }
+    // private int _thisItemPrice;
+    // protected override void OnClick()
+    // {
+    //     base.OnClick();
+    //     if (ResourceManager.instance.GetCoin() >= _thisItemPrice)
+    //     {
+    //         ResourceManager.instance.AddHarvestAmount(_harvestSO, 1);
+    //         ResourceManager.instance.AddCoin(-_thisItemPrice);
+    //     }
+    // }
 }
 

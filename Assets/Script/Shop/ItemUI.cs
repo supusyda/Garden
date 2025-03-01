@@ -11,12 +11,26 @@ public class ItemUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private TMP_Text itemNameText;
     [SerializeField] private TMP_Text priceText;
+    [SerializeField] private TMP_Text buyTxt;
+
     [SerializeField] private Image itemImage;
-    public void SetItem(string itemName, int price, Sprite sprite)
+    [SerializeField] private Button buyBtn;
+
+    public void SetItem(HarvesSO harvestSO)
     {
-        itemNameText.text = itemName;
-        priceText.text = price.ToString();
-        itemImage.sprite = sprite;
+        itemNameText.text = harvestSO.name;
+        priceText.text = harvestSO.price.ToString();
+        itemImage.sprite = harvestSO.sprite;
+        buyTxt.text = (-harvestSO.price).ToString() + " Coin";
+        buyBtn.onClick.AddListener(() =>
+        {
+            if (ResourceManager.instance.GetCoin() >= harvestSO.price)
+            {
+
+                ResourceManager.instance.BuyHarvest(harvestSO, 1);
+
+            }
+        });
     }
 
 }

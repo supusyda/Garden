@@ -19,3 +19,4 @@ MonoBehaviour:
   harvestType: 0
   harvestProduct: {fileID: 11400000, guid: ecb296d64a3813943b56844a5d865a73, type: 2}
   sprite: {fileID: -976997064, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}
+  price: 3

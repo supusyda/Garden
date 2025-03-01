@@ -13,6 +13,9 @@ public class HarvestThing : MonoBehaviour
     [SerializeField] protected Event onSpawnedProduct;
     [SerializeField] protected Event onDecompose;
 
+
+    public static float timeMultiplier = 1;
+
     private int currentAmount;
     protected int TIME_BEFORE_DECOMPOSE_IN_MINUTE = 60;
 
@@ -39,13 +42,13 @@ public class HarvestThing : MonoBehaviour
     {
         while (currentAmount < harvesSO.harvestMaximumAmount)
         {
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSeconds(time * timeMultiplier);
             currentAmount++;
             //todo: spawn the product
             onSpawnedProduct.Raise(this, harvesSO.harvestProduct);
 
         }
-        // yield return new WaitForSeconds(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60);
+        // yield return new WaitForSeconds(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60*timeMultiplier);
         yield return new WaitForSeconds(3);
 
         Decompose();
