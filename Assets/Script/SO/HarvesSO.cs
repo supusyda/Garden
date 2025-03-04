@@ -17,7 +17,7 @@ public enum ProductType
 }
 [CreateAssetMenu(fileName = "Harvest", menuName = "Harvest/HarvestSO")]
 
-public class HarvesSO : ScriptableObject
+public class HarvesSO : ScriptableObject, IShopItem
 {
     // Start is called before the first frame update
     public string harvestObjName;
@@ -30,5 +30,11 @@ public class HarvesSO : ScriptableObject
     public Sprite sprite;
     public int price;
 
+    public int Cost => price;
+
+    public void Buy()
+    {
+        ResourceManager.instance.BuyHarvest(this, 1);
+    }
 }
 

@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     {
         int layerIndex = LayerMask.NameToLayer("Intractable");
         ContactInfo contactInfo = detectInfo.GetContactInfo(layerIndex);
-        Debug.Log(contactInfo.name);
+        // Debug.Log(contactInfo.name);
         if (contactInfo.interactable != null)
         {
             contactInfo.interactable.Interact();

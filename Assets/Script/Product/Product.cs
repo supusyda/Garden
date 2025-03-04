@@ -9,7 +9,7 @@ public class Product : MonoBehaviour, IInteract
     [Header("References")]
     [SerializeField] private Transform model;
     [SerializeField] private Transform productCollider;
-    [SerializeField] private HarvestThing _plantDropOff;
+    private HarvestThing _plantDropOff;
 
     [Header("Events")]
     [SerializeField] protected Event onHarvest;
@@ -35,10 +35,12 @@ public class Product : MonoBehaviour, IInteract
             onDecompose.Unregister(DecomposeProduct);
         });
     }
-    private void HarvestProduct()
+    public void HarvestProduct()
     {
         onHarvest?.Raise(this, this._productSO);
         productCollider.gameObject.SetActive(false);
+
+
         FadeUp();
     }
     private void DecomposeProduct(Component sender, object data)

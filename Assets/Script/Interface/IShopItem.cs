@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IShopItem
 {
+    int Cost { get; }
     void Buy();
 }

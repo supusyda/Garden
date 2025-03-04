@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShopSO", menuName = "ShopSO")]
 public class ShopSO : ScriptableObject
 {
-    public List<HarvesSO> shopItems = new List<HarvesSO>();
+    [SerializeReference]
+    public List<ScriptableObject> shopItems = new();
+    public List<FarmerSO> FarmerShopItem = new List<FarmerSO>();
+
 
 }

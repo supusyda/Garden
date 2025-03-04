@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8413784602497884575}
   - component: {fileID: 7266332827467194619}
   m_Layer: 5
-  m_Name: ItemAmount
+  m_Name: itemLvl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,9 +265,9 @@ GameObject:
   m_Component:
   - component: {fileID: 193516239625539599}
   - component: {fileID: 1187472707350232277}
-  - component: {fileID: 8007049083852719449}
+  - component: {fileID: 3565662029444108362}
   m_Layer: 5
-  m_Name: productSell
+  m_Name: FarmerBuy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &8007049083852719449
+--- !u!114 &3565662029444108362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,15 +331,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2748015871687354094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ead2bc9535558844a77fc23586ba4e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 27647f71b454f254190ce421bf186d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemNameText: {fileID: 4846075030606092343}
-  amountText: {fileID: 7266332827467194619}
+  currentLevelTxt: {fileID: 7266332827467194619}
   buyTxt: {fileID: 354358743447766599}
   itemImage: {fileID: 5637432404561139595}
   buyBtn: {fileID: 421960165703703926}
-  updateProductEvent: {fileID: 11400000, guid: 57868a5a38689c241bf57943b720e0e0, type: 2}
 --- !u!1 &4056113344229129398
 GameObject:
   m_ObjectHideFlags: 0

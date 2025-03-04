@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public static GameManager instance;
 
-    [Header("Rescources")]
-    [SerializeField] private int tomatoCount = 0;
-    [Header("Events")]
-    [SerializeField] private Event onUpdateUI;
+
+
+    // [Header("Events")]
+    // [SerializeField] private Event onUpdateUI;
 
 
     void Awake()
@@ -24,34 +24,34 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void AddTomato(int count)
-    {
-        tomatoCount += count;
+    // public void AddTomato(int count)
+    // {
+    //     tomatoCount += count;
 
-    }
-    public void onHarvesProduct(Component sender, object data)
-    {
-        if (data is ProductSO productTypeSO)
-        {
-            int newData = 0;
-            switch (productTypeSO.productType)
-            {
-                case ProductType.Tomato:
-                    AddTomato(1);
-                    newData = tomatoCount;
-                    break;
-                default:
-                    Debug.Log("Unknown ProductType");
-                    break;
-            }
+    // }
+    // public void onHarvesProduct(Component sender, object data)
+    // {
+    //     if (data is ProductSO productTypeSO)
+    //     {
+    //         int newData = 0;
+    //         switch (productTypeSO.productType)
+    //         {
+    //             case ProductType.Tomato:
+    //                 AddTomato(1);
+    //                 newData = tomatoCount;
+    //                 break;
+    //             default:
+    //                 Debug.Log("Unknown ProductType");
+    //                 break;
+    //         }
 
-            object sendData = (productTypeSO.productType, newData);
-            onUpdateUI?.Raise(this, sendData);
-        }
-        else
-        {
-            Debug.LogError("Invalid data type passed to onHarvestProduct");
-        }
-    }
+    //         object sendData = (productTypeSO.productType, newData);
+    //         onUpdateUI?.Raise(this, sendData);
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Invalid data type passed to onHarvestProduct");
+    //     }
+    // }
 
 }

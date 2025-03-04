@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 1256553189406657512}
   amountText: {fileID: 5029343016535636249}
+  button: {fileID: 6688041642310242995}
 --- !u!1 &6741131085245701556
 GameObject:
   m_ObjectHideFlags: 0

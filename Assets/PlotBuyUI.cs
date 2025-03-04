@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemUI : MonoBehaviour
+public class PlotBuyUI : MonoBehaviour
 {
-    // Start is called before the first frame update
     [Header("References")]
     [SerializeField] private TMP_Text itemNameText;
     [SerializeField] private TMP_Text priceText;
@@ -16,20 +14,19 @@ public class ItemUI : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private Button buyBtn;
 
-    public void SetItem(HarvesSO harvestSO)
+    public void SetItem(PlotSO plotData)
     {
-        itemNameText.text = harvestSO.name;
-        priceText.text = harvestSO.price.ToString();
-        itemImage.sprite = harvestSO.sprite;
-        buyTxt.text = (-harvestSO.price).ToString() + " Coin";
+        itemNameText.text = plotData.name;
+        priceText.text = plotData.BuyPrice.ToString();
+        itemImage.sprite = null;
+        buyTxt.text = (-plotData.BuyPrice).ToString() + " Coin";
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            if (ResourceManager.instance.GetCoin() >= harvestSO.price)
+            if (ResourceManager.instance.GetCoin() >= plotData.BuyPrice)
             {
-                harvestSO.Buy();
+                plotData.Buy();
             }
         });
     }
-
 }

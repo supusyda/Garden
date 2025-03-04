@@ -151,15 +151,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -976997064, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.9, y: 1.525}
+  m_Size: {x: 0.85, y: 0.85}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4630112139605640989
@@ -213,6 +213,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   harvestThing: {fileID: 0}
+  model: {fileID: 313981852258336120}
+  productCount: 0
+  OnSetThingOnPlot: {fileID: 11400000, guid: 59a233bef25987e4594ae4abbfe26177, type: 2}
+  HasFarmerWorkOn: 0
+  IsUnlocked: 0
 --- !u!114 &206925503963902346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,8 +561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f69becab048824b89e6fc1fef1297e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  harvesSO: {fileID: 11400000, guid: 3892649fd6e34c14f94cb2b4b024edd1, type: 2}
+  harvesSO: {fileID: 0}
   plantModel: {fileID: 6394523394593843534}
+  dirt: {fileID: 4040739928026332286}
   onSpawnedProduct: {fileID: 11400000, guid: b8f63b80073226a4e808fb3d20b46036, type: 2}
   onDecompose: {fileID: 11400000, guid: 1445ada2b280f9746ae536fdd014bde2, type: 2}
 --- !u!1 &8794180071352548750

@@ -8,33 +8,43 @@ public class HarvestDopDownUI : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private Transform harvestThingTemplate;
     [Header("Events")]
-    [SerializeField] private Event onSuccessfulBuy;
+    // [SerializeField] private Event OnUpdateDropDownUI;
+    // [SerializeField] private Event OnSetThingOnPlot;
 
 
-    private Dictionary<HarvestResource, HarvestItemUI> harvestItemUIDictionary = new Dictionary<HarvestResource, HarvestItemUI>();
+
+    private Dictionary<HarvestResource, ItemInDropdownUI> harvestItemUIDictionary = new Dictionary<HarvestResource, ItemInDropdownUI>();
 
     void OnEnable()
     {
-        onSuccessfulBuy.Register(OnSuccesBuy);
+        // OnUpdateDropDownUI.Register(OnUpdateUI);
     }
     void OnDisable()
     {
-        onSuccessfulBuy.Unregister(OnSuccesBuy);
+        // OnUpdateDropDownUI.Unregister(OnUpdateUI);
     }
     void Start()
     {
         Init();
     }
 
+    /// 
     private void Init()
     {
         List<HarvestResource> harvestResources = ResourceManager.instance.GetHarvest();
+        Debug.Log("CC J V");
         foreach (HarvestResource harvestResource in harvestResources)
         {
             Transform harvestThing = Instantiate(harvestThingTemplate, transform);
             harvestThing.gameObject.SetActive(true);
-            harvestThing.GetComponent<HarvestItemUI>().SetHarvest(harvestResource.harvestThing.sprite, harvestResource.amount);
-            harvestItemUIDictionary.Add(harvestResource, harvestThing.GetComponent<HarvestItemUI>());
+            harvestThing.GetComponent<ItemInDropdownUI>().SetHarvest(harvestResource.harvestThing.sprite, harvestResource.amount,
+            () =>
+            {
+                Debug.Log("CCs");
+                ResourceManager.instance.SetThingToPutOnPlot(harvestResource.harvestThing);
+            }
+            );
+            harvestItemUIDictionary.Add(harvestResource, harvestThing.GetComponent<ItemInDropdownUI>());
         }
 
 
@@ -46,25 +56,30 @@ public class HarvestDopDownUI : MonoBehaviour
     /// 
     // 
     // pr/// 
-    public void UpdateHarvestItemUI(HarvestResource dictionKey)
+    public void UpdateDropdownItemUI(HarvestResource dictionKey)
     {
 
         // Try to get the HarvestItemUI that matches the given HarvestResource
         if (harvestItemUIDictionary.ContainsKey(dictionKey))
         {
-            Debug.Log("22222");
+
 
             // If we found a match, set the harvest item's sprite and amount
-            harvestItemUIDictionary[dictionKey].SetHarvest(dictionKey.harvestThing.sprite, dictionKey.amount);
+            harvestItemUIDictionary[dictionKey].SetHarvest(dictionKey.harvestThing.sprite, dictionKey.amount,
+            () =>
+            {
+                Debug.Log("CCs");
+                ResourceManager.instance.SetThingToPutOnPlot(dictionKey.harvestThing);
+            }
+            );
 
         }
     }
-    private void OnSuccesBuy(Component sender, object data)
+    public void OnUpdateUI(Component sender, object data)
     {
         if (data is HarvestResource harvestResource)
         {
-            Debug.Log("GO heree" + harvestResource.harvestThing.name + " " + harvestResource.amount);
-            UpdateHarvestItemUI(harvestResource);
+            UpdateDropdownItemUI(harvestResource);
         }
     }
 }

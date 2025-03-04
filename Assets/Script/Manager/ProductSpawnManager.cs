@@ -32,6 +32,7 @@ public class ProductSpawnManager : Spawner
         Product spawnedProduct = SpawnProduct(spawnPos, "ProductPrefab").GetComponent<Product>();
         spawnedProduct.SetProduct(data as ProductSO);
         spawnedProduct.SetPlantDropOff(sender.GetComponent<HarvestThing>());
+        sender.transform.parent.GetComponent<Dirt>().SetProductOnThisPlot(spawnedProduct);
 
     }
 }
