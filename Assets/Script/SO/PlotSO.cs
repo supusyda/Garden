@@ -9,11 +9,21 @@ public class PlotSO : ScriptableObject, IShopItem
     public int BuyPrice;
     public float IncreasePercent;
     public string Name;
+    public Sprite sprite;
 
     public int Cost => BuyPrice;
 
     public void Buy()
     {
+        ResourceManager.instance.AddCoin(-BuyPrice);
         DirtManager.instance.UnlockNextDirt();
+    }
+    public void Upgrade()
+    {
+        if (HarvestThing.Level < 10)
+        {
+            HarvestThing.Level++;
+            ResourceManager.instance.AddCoin(-UpgradePrice);
+        }
     }
 }

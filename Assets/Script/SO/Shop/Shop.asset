@@ -15,6 +15,8 @@ MonoBehaviour:
   shopItems:
   - {fileID: 11400000, guid: ce849ce7e1e0b874ea28696a589b5c14, type: 2}
   - {fileID: 11400000, guid: 3892649fd6e34c14f94cb2b4b024edd1, type: 2}
+  - {fileID: 11400000, guid: 8945b358974097c44ab58f71498f9819, type: 2}
+  - {fileID: 11400000, guid: 5d547df1ef98c8248b88756ce1765ecf, type: 2}
   - {fileID: 11400000, guid: 97380f13ff08a7c43803f8a94d2cea68, type: 2}
   - {fileID: 11400000, guid: 68a7626e7f6de8e46a986c9722c2799a, type: 2}
   FarmerShopItem:

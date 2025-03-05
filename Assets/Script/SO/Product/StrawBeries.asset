@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 258b9574dbc082a4980cc3a10243f655, type: 3}
-  m_Name: Plot
+  m_Script: {fileID: 11500000, guid: 034f6eb8804182b4bb4f050402495b20, type: 3}
+  m_Name: StrawBeries
   m_EditorClassIdentifier: 
-  UpgradePrice: 5
-  BuyPrice: 5
-  IncreasePercent: 10
-  Name: Normal
-  sprite: {fileID: 1917890179, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}
+  productName: StrawBeries
+  productSprite: {fileID: 699900698, guid: 9bf378e8d00487747b5b86c4665301e2, type: 3}
+  productPrice: 8

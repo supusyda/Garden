@@ -1,26 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager instance;
+    private readonly int TARGET_COIN = 1000000;
 
     [Header("Events ")]
 
     public Event onUpdateUIDropDown;
     public Event onUpdateProductUI;
+    public Event onOnCoinChange;
+    public Event onGameOver;
+
+
 
     [Header("Data")]
     [SerializeField] private HarvestResource seletedThingToPutOnPlot;
+    [SerializeField] private int ThingToPutOnPlotIndex;
     [SerializeField]
-    private List<HarvestResource> harvestResources = new List<HarvestResource>();
+    private List<HarvestResource> harvestResources = new List<HarvestResource>();//change to dictionary
     [SerializeField]
-    private List<ProductResource> productResources = new List<ProductResource>();
+    private List<ProductResource> productResources = new List<ProductResource>();//change to dictionary
     [SerializeField]
-    private float coin = 100;
+    private int coin = 100;
 
     void Awake()
     {
@@ -32,6 +39,7 @@ public class ResourceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        onOnCoinChange?.Raise(instance, coin);
         //todo: add load data save from json
     }
     public int GetHarvestAmount(HarvesSO harvesSO)
@@ -49,7 +57,7 @@ public class ResourceManager : MonoBehaviour
     public void BuyHarvest(HarvesSO harvesSO, int amount)
     {
         HarvestResource harvestResource = AddHarvestAmount(harvesSO, amount);
-        AddCoin(-harvesSO.price);
+        AddCoin(-harvesSO.price * amount);
         onUpdateUIDropDown?.Raise(instance, harvestResource);
     }
     public void SellProduct(ProductSO productSO, int amount)
@@ -67,7 +75,8 @@ public class ResourceManager : MonoBehaviour
         {
             if (harvestResources[i].harvestThing == harvesSO)
             {
-                harvestResources[i] = new HarvestResource { harvestThing = harvesSO, amount = harvestResources[i].amount + amount };
+                harvestResources[i].amount += amount;
+
                 return harvestResources[i];
             }
         }
@@ -88,7 +97,16 @@ public class ResourceManager : MonoBehaviour
     }
     public void AddCoin(float amount)
     {
-        coin += amount;
+        coin += (int)amount;
+        onOnCoinChange?.Raise(instance, coin);
+        if (coin >= TARGET_COIN) onGameOver?.Raise(instance, null);
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddCoin(1000000);
+        }
     }
     public void SetThingToPutOnPlot(HarvesSO harvesSO)
     {
@@ -96,14 +114,24 @@ public class ResourceManager : MonoBehaviour
         {
             if (harvestResources[i].harvestThing == harvesSO)
             {
-                seletedThingToPutOnPlot = harvestResources[i];
+                ThingToPutOnPlotIndex = i;
+                return;
             }
         }
 
     }
     public HarvestResource GetThingToPutOnPlot()
     {
-        return seletedThingToPutOnPlot;
+        return harvestResources[ThingToPutOnPlotIndex];
+    }
+    public HarvestResource GetIndexRemainThingToPutOnDirt()
+    {
+        //find index of harvestResources that amount > 0
+        int i = harvestResources.FindIndex(h => h.amount > 0);
+        if (i == -1) return null;
+        harvestResources[i].amount -= 1;
+
+        return harvestResources[i];
     }
     public List<HarvestResource> GetHarvest()
     {
@@ -130,36 +158,23 @@ public class ResourceManager : MonoBehaviour
     {
         if (data is HarvestResource harvestResource)
         {
-            const int reduceAmount = -1;
-            HarvestResource resource = AddHarvestAmount(GetThingToPutOnPlot().harvestThing, reduceAmount);
-            SetThingToPutOnPlot(GetThingToPutOnPlot().harvestThing);
-
-            Debug.Log("GetThingToPutOnPlot().amount: " + GetThingToPutOnPlot().amount);
-
-            onUpdateUIDropDown?.Raise(instance, resource);
+            // const int reduceAmount = -1;
+            // HarvestResource resource = AddHarvestAmount(GetThingToPutOnPlot().harvestThing, reduceAmount);
+            // harvestResources[ThingToPutOnPlotIndex] = new HarvestResource { harvestThing = GetThingToPutOnPlot().harvestThing, amount = GetThingToPutOnPlot().amount + reduceAmount };
+            // harvestResources.FirstOrDefault(h => h.harvestThing == harvestResource.harvestThing).amount += reduceAmount;
+            onUpdateUIDropDown?.Raise(instance, harvestResource);
 
         }
     }
 
 }
 [Serializable]
-public struct HarvestResource
+public class HarvestResource
 {
     public HarvesSO harvestThing;
     public int amount;
-    public override bool Equals(object obj)
-    {
-        if (obj is HarvestResource other)
-        {
-            return Equals(harvestThing, other.harvestThing);
-        }
-        return false;
-    }
-    public void SetAmount(int amount) => this.amount = amount;
-    public override int GetHashCode()
-    {
-        return harvestThing != null ? harvestThing.GetHashCode() : 0;
-    }
+
+
 }
 [Serializable]
 public struct ProductResource

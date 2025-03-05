@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   farmerName: Old
   farmerImage: {fileID: 1096067075, guid: 7b7cf3ab13d180548afbb4ab68265c52, type: 3}
-  timeDoneHarvestInSecond: 1
+  timeDoneHarvestInSecond: 3
   percentIncreaseEachUpgrade: 10
-  updagradeCost: 500
-  buyCost: 0
+  updagradeCost: 0
+  buyCost: 500

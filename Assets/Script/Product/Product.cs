@@ -29,10 +29,10 @@ public class Product : MonoBehaviour, IInteract
     }
     private void FadeUp()
     {
+        onDecompose.Unregister(DecomposeProduct);
         model.GetComponent<SpriteRenderer>().DOFade(0, .5f).OnComplete(() =>
         {
             transform.gameObject.SetActive(false);
-            onDecompose.Unregister(DecomposeProduct);
         });
     }
     public void HarvestProduct()

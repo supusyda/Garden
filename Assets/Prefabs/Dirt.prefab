@@ -218,6 +218,7 @@ MonoBehaviour:
   OnSetThingOnPlot: {fileID: 11400000, guid: 59a233bef25987e4594ae4abbfe26177, type: 2}
   HasFarmerWorkOn: 0
   IsUnlocked: 0
+  IsOccupied: 0
 --- !u!114 &206925503963902346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,6 +567,7 @@ MonoBehaviour:
   dirt: {fileID: 4040739928026332286}
   onSpawnedProduct: {fileID: 11400000, guid: b8f63b80073226a4e808fb3d20b46036, type: 2}
   onDecompose: {fileID: 11400000, guid: 1445ada2b280f9746ae536fdd014bde2, type: 2}
+  onBeginCountdown: {fileID: 11400000, guid: d59533207615a4649bb2de7df4fb82f6, type: 2}
 --- !u!1 &8794180071352548750
 GameObject:
   m_ObjectHideFlags: 0

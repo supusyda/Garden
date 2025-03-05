@@ -19,16 +19,16 @@ public class ItemUI : MonoBehaviour
     public void SetItem(HarvesSO harvestSO)
     {
         itemNameText.text = harvestSO.name;
-        priceText.text = harvestSO.price.ToString();
+        priceText.text = "";
         itemImage.sprite = harvestSO.sprite;
-        buyTxt.text = (-harvestSO.price).ToString() + " Coin";
+        buyTxt.text = (-harvestSO.price * harvestSO.GetBuyAmount()).ToString() + " Coin";
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            if (ResourceManager.instance.GetCoin() >= harvestSO.price)
-            {
-                harvestSO.Buy();
-            }
+
+
+            harvestSO.Buy();
+
         });
     }
 

@@ -54,6 +54,10 @@ public class Dirt : MonoBehaviour, IInteract
         Product product = PopLast(productsOnThisPlot);
         product.HarvestProduct();
     }
+    // public void AutoPutThingOnDirtStart()
+    // {
+    //     PutThingOnDirt(ResourceManager.instance.GetIndexRemainThingToPutOnDirt());
+    // }
     public bool HasProduct()
     {
         return productsOnThisPlot.Count > 0;
@@ -81,15 +85,24 @@ public class Dirt : MonoBehaviour, IInteract
         }
         this.IsUnlocked = isUnlock;
     }
+    public bool CanNotBePutOnDirt()
+    {
+        return IsUnlocked == false || IsOccupied == true || HasFarmerWorkOn == true;
+    }
+    public void PutThingOnDirt(HarvestResource harvestResource)
+    {
+        IsOccupied = true;
+        harvestThing.SetPlant(harvestResource.harvestThing);
 
+        OnSetThingOnPlot?.Raise(this, harvestResource);
+
+    }
     public void Interact()
     {
         if (!IsUnlocked || !ResourceManager.instance.GetThingToPutOnPlot().harvestThing || IsOccupied) return;
         if (ResourceManager.instance.GetThingToPutOnPlot().amount <= 0) return;
-
-        IsOccupied = true;
-        harvestThing.SetPlant(ResourceManager.instance.GetThingToPutOnPlot().harvestThing);
-        OnSetThingOnPlot.Raise(this, ResourceManager.instance.GetThingToPutOnPlot());
+        ResourceManager.instance.GetThingToPutOnPlot().amount--;
+        PutThingOnDirt(ResourceManager.instance.GetThingToPutOnPlot());
 
 
     }

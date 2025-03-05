@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 258b9574dbc082a4980cc3a10243f655, type: 3}
-  m_Name: Plot
+  m_Script: {fileID: 11500000, guid: 3ddc424bb27005c40ae31efc2d28c837, type: 3}
+  m_Name: OnBeginCountdown
   m_EditorClassIdentifier: 
-  UpgradePrice: 5
-  BuyPrice: 5
-  IncreasePercent: 10
-  Name: Normal
-  sprite: {fileID: 1917890179, guid: 528b34f1a9c25e849bf8805cfb3c8ff1, type: 3}

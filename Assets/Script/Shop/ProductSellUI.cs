@@ -44,9 +44,9 @@ public class ProductSellUI : MonoBehaviour
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            if (productResource.amount > 0)
+            if (productResource.amount > 10)
             {
-                ResourceManager.instance.SellProduct(productResource.product, 1);
+                ResourceManager.instance.SellProduct(productResource.product, 10);
             }
         });
     }

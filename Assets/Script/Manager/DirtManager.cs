@@ -27,16 +27,15 @@ public class DirtManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
         Init();
-
     }
+
+
     void Init()
     {
         _currentDirtActive = 0;
+        HarvestThing.Level = 1;
+        Debug.Log(HarvestThing.Level);
         allDirts.Clear();
         Transform temp = transform.Find("Tilemap");
         foreach (Transform dirt in temp)
@@ -51,7 +50,6 @@ public class DirtManager : MonoBehaviour
         {
             if (i < initMaxDirtActive)
             {
-
                 UnlockDirt(allDirts[i]);
                 _currentDirtActive++;
             }
@@ -64,6 +62,7 @@ public class DirtManager : MonoBehaviour
     public void UnlockNextDirt()
     {
         if (_currentDirtActive >= allDirts.Count) return;
+
         allDirts[_currentDirtActive].SetIsUnlock(true);
         _currentDirtActive++;
     }
@@ -71,9 +70,14 @@ public class DirtManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U)) UnlockNextDirt();
     }
-    public Dirt GetRandDirtHasProp()
+    public Dirt GetRandDirtHasPropForFarmer()
     {
         var activeDirts = allDirts.FindAll(dirt => dirt.IsUnlocked && dirt.HasProduct() && !dirt.HasFarmerWorkOn);
+        return activeDirts.Count > 0 ? activeDirts[Random.Range(0, activeDirts.Count)] : null;
+    }
+    public Dirt GetEmptyDirtForFarmer()
+    {
+        var activeDirts = allDirts.FindAll(dirt => !dirt.CanNotBePutOnDirt());
         return activeDirts.Count > 0 ? activeDirts[Random.Range(0, activeDirts.Count)] : null;
     }
     void UnlockDirt(Dirt dirt)
@@ -86,18 +90,20 @@ public class DirtManager : MonoBehaviour
         dirt.SetIsUnlock(false);
         // _currentDirtActive--;
     }
-#if UNITY_EDITOR
-    void OnValidate()
-    {
-        if (!Application.isPlaying)
-        {
-            // Safe to execute only in the editor
-            Init();
-        }
-    }
+    public int GetAvailableDirtCount() => _currentDirtActive;
+    public int GetTotalDirtCount() => allDirts.Count;
+    // #if UNITY_EDITOR
+    //     void OnValidate()
+    //     {
+    //         if (!Application.isPlaying)
+    //         {
+    //             // Safe to execute only in the editor
+    //             Init();
+    //         }
+    //     }
 
 
 
-#endif
+    // #endif
 
 }

@@ -26,4 +26,8 @@ public class InputManager : MonoBehaviour
             contactInfo.interactable.Interact();
         }
     }
+    public void OnGameOver(Component sender, object data)
+    {
+        this.enabled = false;
+    }
 }

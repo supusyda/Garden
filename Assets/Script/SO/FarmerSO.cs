@@ -15,7 +15,7 @@ public class FarmerSO : ScriptableObject, IShopItem
 
     public void Buy()
     {
-        if (ResourceManager.instance.GetCoin() >= buyCost)
+        if (ResourceManager.instance.GetCoin() >= buyCost && FarmerManager.Instance.GetFarmerCount() < FarmerManager.Instance.MAX_FARMER_COUNT)
         {
             ResourceManager.instance.AddCoin(-buyCost);
             Fammer fammer = FarmerManager.Instance.SpawnFarmer(Vector3.zero, Quaternion.identity, "Farmer").GetComponent<Fammer>();

@@ -30,38 +30,10 @@ public class FarmerAnimCtr : MonoBehaviour
     void Start()
     {
 
-        ChangeAnimatorState(FarmerState.Idle);
-    }
-    void Update()
-    {
-        HandleCurrentAnimatorStateUpdate();
 
     }
-    void HandleCurrentAnimatorStateUpdate()
-    {
-        return;
-        // if (_currentAnimatorState == FarmerState.)
-        switch (_currentAnimatorState)
-
-        {
-            case FarmerState.Idle:
-                ChangeAnimatorState(FarmerState.Idle);
-                break;
 
 
-            case FarmerState.Working:
-                if (IsAnimationFinished(GetHashForState(_currentAnimatorState)))
-                {
-                    ChangeAnimatorState(FarmerState.Working);
-                }
-                break;
-
-
-            default:
-                break;
-        }
-
-    }
 
     public void ChangeAnimatorState(FarmerState newState)
     {
@@ -69,18 +41,20 @@ public class FarmerAnimCtr : MonoBehaviour
         switch (newState)
         {
             case FarmerState.Idle:
+                SmothTransistion(GetHashForState(FarmerState.Idle));
 
                 break;
             case FarmerState.Working:
+                SmothTransistion(GetHashForState(FarmerState.Working));
 
                 break;
         }
-        SmothTransistion(GetHashForState(newState));
         _currentAnimatorState = newState;
     }
     public void SmothTransistion(int newHashAnim)
     {
-        animator.CrossFade(newHashAnim, 0, 0);
+        // animator.CrossFade(newHashAnim, 0, 0);
+        animator.Play(newHashAnim);
     }
     /// 
     /// 

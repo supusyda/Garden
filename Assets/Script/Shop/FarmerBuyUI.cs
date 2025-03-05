@@ -18,14 +18,18 @@ public class FarmerBuyUI : MonoBehaviour
     public void SetItem(FarmerSO farmerSO)
     {
         itemNameText.text = farmerSO.name;
-        currentLevelTxt.text = "lv: 1";
+        currentLevelTxt.text = "Amount: " + GetAmountTxt();
         itemImage.sprite = farmerSO.farmerImage;
         buyTxt.text = (-farmerSO.buyCost).ToString() + " Coin";
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
             farmerSO.Buy();
-
+            currentLevelTxt.text = "Amount: " + GetAmountTxt();
         });
+    }
+    public string GetAmountTxt()
+    {
+        return FarmerManager.Instance.GetFarmerCount() >= FarmerManager.Instance.MAX_FARMER_COUNT ? "MAX" : FarmerManager.Instance.GetFarmerCount().ToString();
     }
 }

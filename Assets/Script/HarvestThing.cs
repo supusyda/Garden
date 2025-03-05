@@ -14,12 +14,14 @@ public class HarvestThing : MonoBehaviour
     [Header("Events")]
     [SerializeField] protected Event onSpawnedProduct;
     [SerializeField] protected Event onDecompose;
+    [SerializeField] protected Event onBeginCountdown;
 
 
-    public static float timeMultiplier = 1;
+
+    public static float Level = 1;
 
     // public int currentAmount = 0;
-    protected int TIME_BEFORE_DECOMPOSE_IN_MINUTE = 60;
+    protected int TIME_BEFORE_DECOMPOSE_IN_MINUTE = 1;
 
     Coroutine _harvestCoroutine;
 
@@ -53,27 +55,53 @@ public class HarvestThing : MonoBehaviour
             StopCoroutine(_harvestCoroutine);
         }
 
-        float timeSpawnProduct = harvesSO.harvestTimeMinutes * 60;
-        _harvestCoroutine = StartCoroutine(HarvestCoroutineInSec());
+        float timeSpawnProduct = GetHarvestTime();
+        _harvestCoroutine = StartCoroutine(HarvestCoroutineInSec(timeSpawnProduct));
     }
 
-    private IEnumerator HarvestCoroutineInSec(float time = .4f)
+    /// <summary>
+    /// Coroutine to handle the harvesting process over time. It waits for a specified interval
+    /// before spawning products and eventually triggers decomposition.
+    /// </summary>
+    /// <param name="time">The base time interval in seconds for product spawn.</param>
+    private IEnumerator HarvestCoroutineInSec(float time)
     {
+        // Wait time for spawning a product, adjusted by a time multiplier
+        var waitForSpawnInterval = new WaitForSeconds(time);
+        // Wait time before triggering decomposition
+        var waitForDecomposeInterval = new WaitForSeconds(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60);
+
+        // Loop until the product count reaches the maximum harvest amount
         while (dirt.productCount < harvesSO.harvestMaximumAmount)
         {
-            yield return new WaitForSeconds(time * timeMultiplier);
+            // Create countdown data with current position and adjusted time
+            var harvestCountdownData = new OnBeginCountdownParamData
+            {
+                Position = transform.position,
+                Time = (int)(time)
+            };
+            // Raise the countdown event
+            onBeginCountdown.Raise(this, harvestCountdownData);
+
+            // Wait for the spawn interval
+            yield return waitForSpawnInterval;
+            // Increment the product count
             dirt.productCount++;
 
-            //todo: spawn the product
+            // Raise the event for the spawned product
             onSpawnedProduct.Raise(this, harvesSO.harvestProduct);
-
         }
-        // yield return new WaitForSeconds(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60*timeMultiplier);
-        yield return new WaitForSeconds(1);
-
+        var countdownData = new OnBeginCountdownParamData
+        {
+            Position = transform.position,
+            Time = (int)(TIME_BEFORE_DECOMPOSE_IN_MINUTE * 60)
+        };
+        // Raise the countdown event
+        onBeginCountdown.Raise(this, countdownData);
+        // Wait for the decomposition interval
+        yield return waitForDecomposeInterval;
+        // Trigger decomposition
         Decompose();
-
-
     }
     private void Decompose()
     {
@@ -84,7 +112,13 @@ public class HarvestThing : MonoBehaviour
 
         SetPlant(null);
     }
-
+    private float GetHarvestTime()
+    {
+        float baseTime = harvesSO.harvestTimeMinutes * 60;
+        float reductionPerLevel = baseTime * 0.1f * (Level - 1); // 10% reduction per level
+        Debug.Log(baseTime - reductionPerLevel);
+        return Mathf.Max(baseTime - reductionPerLevel, 1f); // Ensure it doesn't go below 1 second
+    }
 
 #if UNITY_EDITOR
     // void OnValidate()

@@ -32,7 +32,7 @@ public class PopUpSpawnerManager : Spawner
     {
         Transform spawnObj = base.SpawnThing(spawnPos, Quaternion.identity, POPUP);
         PopUp popUp = spawnObj.GetComponent<PopUp>();
-        popUp.SetPopUp(amount.ToString(), sprite);
+        popUp.SetPopUp("+ " + amount.ToString(), sprite);
         spawnObj.gameObject.SetActive(true);
     }
     public void OnHarvestPopUp(Component sender, object data)

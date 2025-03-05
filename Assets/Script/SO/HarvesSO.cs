@@ -7,14 +7,7 @@ public enum HarvestType
     Animal,
     None
 }
-public enum ProductType
-{
-    None,
-    Tomato,
-    Corn,
-    Milk,
 
-}
 [CreateAssetMenu(fileName = "Harvest", menuName = "Harvest/HarvestSO")]
 
 public class HarvesSO : ScriptableObject, IShopItem
@@ -30,11 +23,26 @@ public class HarvesSO : ScriptableObject, IShopItem
     public Sprite sprite;
     public int price;
 
+
     public int Cost => price;
 
     public void Buy()
     {
-        ResourceManager.instance.BuyHarvest(this, 1);
+        if (ResourceManager.instance.GetCoin() >= price * GetBuyAmount())
+            ResourceManager.instance.BuyHarvest(this, GetBuyAmount());
+    }
+    public int GetBuyAmount()
+    {
+
+        switch (harvestType)
+        {
+            case HarvestType.Fruit:
+                return 10;
+            case HarvestType.Animal:
+                return 1;
+            default:
+                return 0;
+        }
     }
 }
 
